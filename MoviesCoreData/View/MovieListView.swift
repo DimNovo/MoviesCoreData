@@ -19,7 +19,10 @@ struct MovieListView: View {
         } else {
             List {
                 ForEach(movieListVM.movies, id: \.id) { movie in
-                    MovieCellView(movie: movie)
+                    NavigationLink(
+                        destination: ReviewListView(movieVM: movie)) {
+                        MovieCellView(movie: movie)
+                    }
                 }
                 .onDelete(perform: { indexSet in
                     movieListVM.delete(indexSet)

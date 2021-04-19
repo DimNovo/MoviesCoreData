@@ -23,13 +23,12 @@ final class AddMovieViewModel: ObservableObject {
     private var cancellableSet: Set<AnyCancellable> = []
     
     func save(_ manager: CoreDataManager = .shared) {
-        manager
-            .saveMovie(
-                title: title,
-                director: director,
-                rating: rating,
-                releaseDate: releaseDate
-            )
+        let movie: Movie = .init(context: manager.persistentContainer.viewContext)
+        movie.title = title
+        movie.director = director
+        movie.rating = Double(rating ?? 0)
+        movie.releaseDate = releaseDate
+        manager.save()
             .receive(on: DispatchQueue.main)
             .sink { [self] completion in
                 switch completion {

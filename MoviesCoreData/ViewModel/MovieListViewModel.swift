@@ -44,7 +44,7 @@ final class MovieListViewModel: ObservableObject {
         guard let movieVM = indexSet.map({ movies[$0]}).first,
               let movie = manager.getMovieById(movieVM.id) else { return }
         manager
-            .deleteMovie(movie)
+            .delete(movie)
             .receive(on: DispatchQueue.main)
             .sink { [self] completion in
                 switch completion {

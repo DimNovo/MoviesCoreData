@@ -37,16 +37,21 @@ struct AddMovieView: View {
                 .padding([.vertical, .leading])
                 .frame(width: UIScreen.main.bounds.width)
                 .background(Color.init(.secondarySystemBackground))
-                DatePicker(
-                    addMovieVM.title.isEmpty ||
-                        addMovieVM.director.isEmpty ? "" : "Date",
-                    selection: $addMovieVM.releaseDate,
-                    in: ...Date(),
-                    displayedComponents: .date
-                )
-                .padding(.horizontal)
-                .datePickerStyle(GraphicalDatePickerStyle())
-                .disabled(addMovieVM.title.isEmpty || addMovieVM.director.isEmpty)
+                if !addMovieVM.title.isEmpty &&
+                    !addMovieVM.director.isEmpty &&
+                    addMovieVM.rating != nil {
+                    DatePicker(
+                        addMovieVM.title.isEmpty ||
+                            addMovieVM.director.isEmpty ? "" : "Date",
+                        selection: $addMovieVM.releaseDate,
+                        in: ...Date(),
+                        displayedComponents: .date
+                    )
+                    .padding(.horizontal)
+                    .datePickerStyle(GraphicalDatePickerStyle())
+                    .transition(.scale)
+                    .animation(.default)
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

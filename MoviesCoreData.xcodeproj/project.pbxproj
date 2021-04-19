@@ -16,6 +16,11 @@
 		740A30E5262A3E9600519206 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740A30E4262A3E9600519206 /* RatingView.swift */; };
 		740A30E8262A53CD00519206 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740A30E7262A53CD00519206 /* CoreDataManager.swift */; };
 		740A30EC262A545700519206 /* MovieDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 740A30EA262A545700519206 /* MovieDataModel.xcdatamodeld */; };
+		74B81AD1262D1B6D006D1429 /* ReviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B81AD0262D1B6D006D1429 /* ReviewListView.swift */; };
+		74B81AD4262D1CCF006D1429 /* AddReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B81AD3262D1CCF006D1429 /* AddReviewView.swift */; };
+		74B81AD7262D2257006D1429 /* ReviewListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B81AD6262D2257006D1429 /* ReviewListViewModel.swift */; };
+		74B81ADA262D228A006D1429 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B81AD9262D228A006D1429 /* ReviewViewModel.swift */; };
+		74B81ADD262D22C0006D1429 /* AddReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B81ADC262D22C0006D1429 /* AddReviewViewModel.swift */; };
 		74F5B407262A5E5D00F2058E /* AddMovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5B406262A5E5D00F2058E /* AddMovieViewModel.swift */; };
 		74F5B40A262A6ADB00F2058E /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5B409262A6ADB00F2058E /* MovieListViewModel.swift */; };
 		74F5B40E262A6FEC00F2058E /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5B40D262A6FEC00F2058E /* MovieViewModel.swift */; };
@@ -34,6 +39,11 @@
 		740A30E4262A3E9600519206 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		740A30E7262A53CD00519206 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		740A30EB262A545700519206 /* MovieDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MovieDataModel.xcdatamodel; sourceTree = "<group>"; };
+		74B81AD0262D1B6D006D1429 /* ReviewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListView.swift; sourceTree = "<group>"; };
+		74B81AD3262D1CCF006D1429 /* AddReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewView.swift; sourceTree = "<group>"; };
+		74B81AD6262D2257006D1429 /* ReviewListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListViewModel.swift; sourceTree = "<group>"; };
+		74B81AD9262D228A006D1429 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
+		74B81ADC262D22C0006D1429 /* AddReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewViewModel.swift; sourceTree = "<group>"; };
 		74F5B406262A5E5D00F2058E /* AddMovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMovieViewModel.swift; sourceTree = "<group>"; };
 		74F5B409262A6ADB00F2058E /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
 		74F5B40D262A6FEC00F2058E /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
@@ -114,6 +124,8 @@
 				740A30DE262A39F500519206 /* MovieListView.swift */,
 				74FC6830262A9A00002683AB /* MovieCellView.swift */,
 				740A30E4262A3E9600519206 /* RatingView.swift */,
+				74B81AD0262D1B6D006D1429 /* ReviewListView.swift */,
+				74B81AD3262D1CCF006D1429 /* AddReviewView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -124,6 +136,9 @@
 				74F5B409262A6ADB00F2058E /* MovieListViewModel.swift */,
 				74F5B406262A5E5D00F2058E /* AddMovieViewModel.swift */,
 				74F5B40D262A6FEC00F2058E /* MovieViewModel.swift */,
+				74B81AD6262D2257006D1429 /* ReviewListViewModel.swift */,
+				74B81ADC262D22C0006D1429 /* AddReviewViewModel.swift */,
+				74B81AD9262D228A006D1429 /* ReviewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -207,13 +222,18 @@
 			files = (
 				740A30E8262A53CD00519206 /* CoreDataManager.swift in Sources */,
 				74F5B40E262A6FEC00F2058E /* MovieViewModel.swift in Sources */,
+				74B81AD7262D2257006D1429 /* ReviewListViewModel.swift in Sources */,
 				740A30CB262A394600519206 /* ContentView.swift in Sources */,
+				74B81ADA262D228A006D1429 /* ReviewViewModel.swift in Sources */,
 				740A30E2262A3AF200519206 /* AddMovieView.swift in Sources */,
+				74B81AD1262D1B6D006D1429 /* ReviewListView.swift in Sources */,
 				74F5B407262A5E5D00F2058E /* AddMovieViewModel.swift in Sources */,
 				74FC6831262A9A00002683AB /* MovieCellView.swift in Sources */,
 				740A30C9262A394600519206 /* MoviesCoreDataApp.swift in Sources */,
+				74B81ADD262D22C0006D1429 /* AddReviewViewModel.swift in Sources */,
 				740A30E5262A3E9600519206 /* RatingView.swift in Sources */,
 				740A30EC262A545700519206 /* MovieDataModel.xcdatamodeld in Sources */,
+				74B81AD4262D1CCF006D1429 /* AddReviewView.swift in Sources */,
 				740A30DF262A39F500519206 /* MovieListView.swift in Sources */,
 				74F5B40A262A6ADB00F2058E /* MovieListViewModel.swift in Sources */,
 			);

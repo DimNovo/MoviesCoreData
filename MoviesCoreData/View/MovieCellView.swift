@@ -21,7 +21,7 @@ struct MovieCellView: View {
                     .foregroundColor(.secondary)
             }
             Spacer()
-            RatingView(rating: .constant(movie.rating), font: .subheadline)
+            RatingView(rating: .constant(movie.rating), font: .footnote)
         }
     }
 }

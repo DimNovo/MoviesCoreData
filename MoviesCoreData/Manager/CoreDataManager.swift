@@ -44,13 +44,8 @@ final class CoreDataManager {
         }
     }
     
-    func saveMovie(title: String, director: String, rating: Int?, releaseDate: Date) -> Future<Void, Error> {
+    func save() -> Future<Void, Error> {
         Future { [self] promise in
-            let movie: Movie = .init(context: persistentContainer.viewContext)
-            movie.title = title
-            movie.director = director
-            movie.rating = Double(rating ?? 0)
-            movie.releaseDate = releaseDate
             do {
                 try persistentContainer.viewContext.save()
                 promise(.success(()))
@@ -60,10 +55,10 @@ final class CoreDataManager {
         }
     }
     
-    func deleteMovie(_ movie: Movie) -> Future<Void, Error> {
+    func delete(_ movie: Movie) -> Future<Void, Error> {
         Future { [self] promise in
-            persistentContainer.viewContext.delete(movie)
             do {
+                persistentContainer.viewContext.delete(movie)
                 try persistentContainer.viewContext.save()
                 promise(.success(()))
             } catch {
