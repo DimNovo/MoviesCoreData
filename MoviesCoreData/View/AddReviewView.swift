@@ -15,32 +15,32 @@ struct AddReviewView: View {
     let movieVM: MovieViewModel
     var body: some View {
         NavigationView {
-                Form {
-                    Section(header: Text("Review")) {
-                        TextField("title", text: $addReviewVM.title)
-                        TextField("text", text: $addReviewVM.text)
-                    }
+            Form {
+                Section(header: Text("Review")) {
+                    TextField("title", text: $addReviewVM.title)
+                    TextField("text", text: $addReviewVM.text)
                 }
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(
-                            action: {
-                                addReviewVM.addReviewForMovie(movieVM)
-                                presentationMode.wrappedValue.dismiss()
-                            },
-                            label: {
-                                Text("Save")
-                                    .background(
-                                        addReviewVM.title.isEmpty ||
-                                            addReviewVM.text.isEmpty ?
-                                            Color.secondary.opacity(0.35) : nil)
-                            })
-                            .disabled(
-                                addReviewVM.title.isEmpty ||
-                                    addReviewVM.text.isEmpty)
-                    }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(
+                        action: {
+                            addReviewVM.addReviewForMovie(movieVM)
+                            presentationMode.wrappedValue.dismiss()
+                        },
+                        label: {
+                            Text("Save")
+                                .background(
+                                    addReviewVM.title.isEmpty ||
+                                        addReviewVM.text.isEmpty ?
+                                        Color.secondary.opacity(0.35) : nil)
+                        })
+                        .disabled(
+                            addReviewVM.title.isEmpty ||
+                                addReviewVM.text.isEmpty)
                 }
-                .navigationBarTitle("Add Review")
+            }
+            .navigationBarTitle("Add Review")
         }
     }
 }

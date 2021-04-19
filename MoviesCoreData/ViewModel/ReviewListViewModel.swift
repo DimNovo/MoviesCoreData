@@ -19,12 +19,13 @@ final class ReviewListViewModel: ObservableObject {
     
     private var cancellableSet: Set<AnyCancellable> = []
     
-    init() {
-        updateUI()
-    }
-    
-    func updateUI(_ manager: CoreDataManager = .shared) {
-        
+    func updateUI(for movie: MovieViewModel, _ manager: CoreDataManager = .shared) {
+        guard let movie = manager.getMovieById(movie.id),
+              let currentReviews = movie.reviews?.allObjects as? [Review]
+        else { return }
+        DispatchQueue.main.async { [self] in
+            reviews = currentReviews.map(ReviewViewModel.init)
+        }
     }
     
     func delete(_ indexSet: IndexSet, _ manager: CoreDataManager = .shared) {

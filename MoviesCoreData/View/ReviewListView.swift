@@ -17,16 +17,20 @@ struct ReviewListView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(review.title)
+                            .font(.footnote)
                         Text(review.text)
+                            .font(.caption)
                             .foregroundColor(.secondary)
                     }
                     Spacer()
-                    Text(review.publishedAt, style: .date)
+                    Text(review.publishedAt ?? .init(), style: .date)
+                        .font(.caption2)
                 }
             }
         }
+        .onAppear { reviewListVM.updateUI(for: movieVM)}
         .listStyle(PlainListStyle())
-        .navigationTitle("Movie Title")
+        .navigationTitle("Reviews")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(
@@ -40,7 +44,7 @@ struct ReviewListView: View {
         }
         .sheet(
             isPresented: $reviewListVM.isPresented,
-            onDismiss: { reviewListVM.updateUI()}
+            onDismiss: { reviewListVM.updateUI(for: movieVM)}
         ) {
             AddReviewView(movieVM: movieVM)
         }

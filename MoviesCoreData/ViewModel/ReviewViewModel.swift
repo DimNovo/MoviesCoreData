@@ -22,8 +22,8 @@ final class ReviewViewModel: Identifiable {
     var text: String {
         review.text ?? ""
     }
-    var publishedAt: Date {
-        review.publishedAt ?? .init()
+    var publishedAt: Date? {
+        review.publishedAt
     }
     var movie: Movie? {
         review.movie
