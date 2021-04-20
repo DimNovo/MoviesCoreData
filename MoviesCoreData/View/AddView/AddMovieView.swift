@@ -26,31 +26,16 @@ struct AddMovieView: View {
                                         addMovieVM.director.isEmpty ? 0.35 : 1.0)
                     }
                     .disabled(addMovieVM.title.isEmpty || addMovieVM.director.isEmpty)
-                }
-                HStack {
-                    Text("RELEASE DATE")
-                        .font(.footnote)
-                        .fontWeight(.medium)
-                        .foregroundColor(.secondary)
-                    Spacer()
-                }
-                .padding([.vertical, .leading])
-                .frame(width: UIScreen.main.bounds.width)
-                .background(Color.init(.secondarySystemBackground))
-                if !addMovieVM.title.isEmpty &&
-                    !addMovieVM.director.isEmpty &&
-                    addMovieVM.rating != nil {
-                    DatePicker(
-                        addMovieVM.title.isEmpty ||
-                            addMovieVM.director.isEmpty ? "" : "Date",
-                        selection: $addMovieVM.releaseDate,
-                        in: ...Date(),
-                        displayedComponents: .date
-                    )
-                    .padding(.horizontal)
-                    .datePickerStyle(GraphicalDatePickerStyle())
-                    .transition(.scale)
-                    .animation(.default)
+                    Section(header: Text("RELEASE DATE")) {
+                        DatePicker(
+                            addMovieVM.title.isEmpty ||
+                                addMovieVM.director.isEmpty ? "" : "Date",
+                            selection: $addMovieVM.releaseDate,
+                            in: ...Date(),
+                            displayedComponents: .date
+                        )
+                        .datePickerStyle(GraphicalDatePickerStyle())
+                    }
                 }
             }
             .toolbar {
@@ -73,6 +58,7 @@ struct AddMovieView: View {
             }
             .navigationBarTitle("Add Movie", displayMode: .inline)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

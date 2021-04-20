@@ -21,15 +21,16 @@ struct MovieCellView: View {
                     .foregroundColor(.secondary)
             }
             Spacer()
-            RatingView(rating: .constant(movie.rating), font: .footnote)
+            RatingView(rating: .constant(movie.rating), font: .footnote) 
         }
     }
 }
 
 struct MovieCellView_Previews: PreviewProvider {
     static var previews: some View {
-        let manager = CoreDataManager.shared
+        let manager = CoreDataProvider.shared
         let context = manager.persistentContainer.viewContext
         MovieCellView(movie: MovieViewModel(movie: .init(context: context)))
+            .previewLayout(.sizeThatFits)
     }
 }

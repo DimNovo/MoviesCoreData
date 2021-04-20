@@ -18,16 +18,19 @@ struct MovieListView: View {
                 .foregroundColor(.init(.secondarySystemBackground))
         } else {
             List {
-                ForEach(movieListVM.movies, id: \.id) { movie in
-                    NavigationLink(
-                        destination: ReviewListView(movieVM: movie)) {
-                        MovieCellView(movie: movie)
+                Section(header: Text("Movies in alphabet order").fontWeight(.light)) {
+                    ForEach(movieListVM.movies.sorted(by: { $0.title < $1.title })) { movieVM in
+                        NavigationLink(
+                            destination: MovieDetailView(movieVM: movieVM),
+                            label: {
+                                MovieCellView(movie: movieVM)
+                            })
                     }
+                    .onDelete(perform: { indexSet in
+                        movieListVM.delete(indexSet)
+                    })
+                    .listRowBackground(Color.init(.secondarySystemBackground))
                 }
-                .onDelete(perform: { indexSet in
-                    movieListVM.delete(indexSet)
-                })
-                .listRowBackground(Color.init(.secondarySystemBackground))
             }
             .listStyle(PlainListStyle())
         }

@@ -19,17 +19,21 @@ final class AddMovieViewModel: ObservableObject {
     @Published
     var director = ""
     
+    private typealias MoviePublisher = AnyPublisher<Movie, Error>
     var releaseDate = Date()
     private var cancellableSet: Set<AnyCancellable> = []
     
-    func save(_ manager: CoreDataManager = .shared) {
-        let movie: Movie = .init(context: manager.persistentContainer.viewContext)
+    func save() {
+        
+        let movie: Movie =
+            .init(context: CoreDataProvider.shared.persistentContainer.viewContext)
         movie.title = title
         movie.director = director
         movie.rating = Double(rating ?? 0)
         movie.releaseDate = releaseDate
-        manager.save()
-            .receive(on: DispatchQueue.main)
+        
+        MoviePublisher
+            .save()
             .sink { [self] completion in
                 switch completion {
                 case .finished:
@@ -37,7 +41,7 @@ final class AddMovieViewModel: ObservableObject {
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-            } receiveValue: { _ in  }
+            } receiveValue: { _ in }
             .store(in: &cancellableSet)
     }
 }

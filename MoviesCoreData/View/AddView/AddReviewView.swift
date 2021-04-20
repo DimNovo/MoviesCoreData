@@ -47,7 +47,7 @@ struct AddReviewView: View {
 
 struct AddReviewView_Previews: PreviewProvider {
     static var previews: some View {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        let context = CoreDataProvider.shared.persistentContainer.viewContext
         AddReviewView(movieVM: .init(movie: .init(context: context)))
     }
 }

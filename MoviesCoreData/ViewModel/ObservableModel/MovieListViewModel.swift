@@ -17,16 +17,17 @@ final class MovieListViewModel: ObservableObject {
     @Published
     var flag = false
     
+    private typealias MoviePublisher = AnyPublisher<Movie, Error>
+    private typealias MoviesPublisher = AnyPublisher<[Movie], Error>
     private var cancellableSet: Set<AnyCancellable> = []
     
     init() {
         updateUI()
     }
     
-    func updateUI(_ manager: CoreDataManager = .shared) {
-        manager
-            .getAllMovies()
-            .receive(on: DispatchQueue.main)
+    func updateUI() {
+        MoviesPublisher
+            .getAll()
             .sink { [self] completion in
                 switch completion {
                 case .finished:
@@ -40,12 +41,14 @@ final class MovieListViewModel: ObservableObject {
             .store(in: &cancellableSet)
     }
     
-    func delete(_ indexSet: IndexSet, _ manager: CoreDataManager = .shared) {
-        guard let movieVM = indexSet.map({ movies[$0]}).first,
-              let movie = manager.getMovieById(movieVM.id) else { return }
-        manager
-            .delete(movie)
-            .receive(on: DispatchQueue.main)
+    func delete(_ indexSet: IndexSet) {
+        guard let movieVM = indexSet.map({ movies[$0]}).first else { return }
+        MoviePublisher
+            .getBy(movieVM.id)
+            .flatMap { movie -> AnyPublisher<Void, Error> in
+                MoviePublisher
+                    .delete(movie)
+            }
             .sink { [self] completion in
                 switch completion {
                 case .finished:

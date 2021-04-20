@@ -17,22 +17,24 @@ final class AddReviewViewModel: ObservableObject {
     @Published
     var flag = false
     
+    private typealias MoviePublisher = AnyPublisher<Movie, Error>
     private var cancellableSet: Set<AnyCancellable> = []
     
-    func addReviewForMovie(
-        _ movieVM: MovieViewModel,
-        _ manager: CoreDataManager = .shared
-    ) {
-        
-        let movie = manager.getMovieById(movieVM.id)
-        let review: Review =
-            .init(context: manager.persistentContainer.viewContext)
-        review.title = title
-        review.text = text
-        review.movie = movie
-        
-        manager.save()
-            .receive(on: DispatchQueue.main)
+    func addReviewForMovie(_ movieVM: MovieViewModel) {
+        MoviePublisher
+            .getBy(movieVM.id)
+            .flatMap { [self] movie -> AnyPublisher<Void, Error> in
+                if let movie = movie as? Movie {
+                    let review: Review =
+                        .init(context: CoreDataProvider.shared.persistentContainer.viewContext)
+                    review.title = title
+                    review.text = text
+                    review.movie = movie
+                }
+                return
+                    MoviePublisher
+                    .save()
+            }
             .sink { [self] completion in
                 switch completion {
                 case .finished:
