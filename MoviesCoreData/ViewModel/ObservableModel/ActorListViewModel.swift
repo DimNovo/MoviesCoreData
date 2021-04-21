@@ -44,7 +44,7 @@ final class ActorListViewModel: ObservableObject {
     func getMoviesByActor(_ name: String) {
         let predicate = "actors.name CONTAINS %@"
         MoviePublisher
-            .getMoviesByActor(name, predicate)
+            .getMoviesByActor(name, "Movie", predicate)
             .sink { [self] completion in
                 switch completion {
                 case .finished:
@@ -53,7 +53,7 @@ final class ActorListViewModel: ObservableObject {
                     print(error.localizedDescription)
                 }
             } receiveValue: { [self] in
-                if let moviesByActor = $0 {
+                if let moviesByActor = $0 as? [Movie] {
                     movies = moviesByActor.map(MovieViewModel.init)
                 }
             }

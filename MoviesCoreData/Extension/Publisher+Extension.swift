@@ -9,9 +9,11 @@ import CoreData
 import Combine
 
 extension Publisher {
-    static func save() -> AnyPublisher<Void, Error> {
+    static func save(
+        _ provider: CoreDataProvider = .shared
+    ) -> AnyPublisher<Void, Error> {
         Future { promise in
-            let context = CoreDataProvider.shared.persistentContainer.viewContext
+            let context = provider.persistentContainer.viewContext
             do {
                 try context.save()
                 promise(.success(()))
@@ -26,9 +28,12 @@ extension Publisher {
 }
 
 extension Publisher {
-    static func delete<T: NSManagedObject>(_ object: T?) -> AnyPublisher<Void, Error> {
+    static func delete<T: NSManagedObject>(
+        _ object: T?,
+        _ provider: CoreDataProvider = .shared
+    ) -> AnyPublisher<Void, Error> {
         Future { promise in
-            let context = CoreDataProvider.shared.persistentContainer.viewContext
+            let context = provider.persistentContainer.viewContext
             do {
                 if let object = object {
                     context.delete(object)
@@ -46,16 +51,19 @@ extension Publisher {
 }
 
 extension Publisher {
-    static func getMoviesByActor(
+    static func getMoviesByActor<T: NSManagedObject>(
         _ name: String,
-        _ predicateFormat: String
-    ) -> AnyPublisher<[Movie]?, Error> {
+        _ entityName: String,
+        _ predicateFormat: String,
+        _ provider: CoreDataProvider = .shared
+    ) -> AnyPublisher<[T]?, Error> {
         Future { promise in
             do {
-                let context = CoreDataProvider.shared.persistentContainer.viewContext
-                let request: NSFetchRequest = Movie.fetchRequest()
+                let context = provider.persistentContainer.viewContext
+                let request: NSFetchRequest<T> = .init(entityName: entityName)
                 request.predicate = NSPredicate(format: predicateFormat, name)
-                promise(.success(try context.fetch(request)))
+                let array: Array<T> = try context.fetch(request)
+                promise(.success(array))
             } catch {
                 promise(.failure(error))
             }
@@ -66,9 +74,12 @@ extension Publisher {
 }
 
 extension Publisher {
-    static func getBy<T: NSManagedObject>(_ id: NSManagedObjectID) -> AnyPublisher<T?, Error> {
+    static func getBy<T: NSManagedObject>(
+        _ id: NSManagedObjectID,
+        _ provider: CoreDataProvider = .shared
+    ) -> AnyPublisher<T?, Error> {
         Future { promise in
-            let context = CoreDataProvider.shared.persistentContainer.viewContext
+            let context = provider.persistentContainer.viewContext
             do {
                 promise(.success(try context.existingObject(with: id) as? T))
             } catch {
@@ -81,9 +92,11 @@ extension Publisher {
 }
 
 extension Publisher {
-    static func getAll<T: NSManagedObject>() -> AnyPublisher<[T], Error> {
+    static func getAll<T: NSManagedObject>(
+        _ provider: CoreDataProvider = .shared
+    ) -> AnyPublisher<[T], Error> {
         Future { promise in
-            let context = CoreDataProvider.shared.persistentContainer.viewContext
+            let context = provider.persistentContainer.viewContext
             let fetchRequest: NSFetchRequest<T> = .init(entityName: String(describing: T.self))
             do {
                 promise(.success(try context.fetch(fetchRequest)))
