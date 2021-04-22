@@ -13,7 +13,7 @@ final class MovieListViewModel: ObservableObject {
     @Published
     var movies: [MovieViewModel] = []
     @Published
-    var isPresented = false 
+    var activeSheet: ActiveSheet? = nil
     @Published
     var flag = false
     
@@ -42,7 +42,7 @@ final class MovieListViewModel: ObservableObject {
     }
     
     func delete(_ indexSet: IndexSet) {
-        guard let movieVM = indexSet.map({ movies[$0]}).first else { return }
+        guard let movieVM = indexSet.map({ movies[$0] }).first else { return }
         MoviePublisher
             .getBy(movieVM.id)
             .flatMap { movie -> AnyPublisher<Void, Error> in

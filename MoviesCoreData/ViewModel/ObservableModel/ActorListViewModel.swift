@@ -44,7 +44,7 @@ final class ActorListViewModel: ObservableObject {
     func getMoviesByActor(_ name: String) {
         let predicate = "actors.name CONTAINS %@"
         MoviePublisher
-            .getMoviesByActor(name, "Movie", predicate)
+            .getBy(name, "Movie", predicate)
             .sink { [self] completion in
                 switch completion {
                 case .finished:
@@ -61,7 +61,7 @@ final class ActorListViewModel: ObservableObject {
     }
     
     func delete(_ indexSet: IndexSet, _ manager: CoreDataProvider = .shared) {
-        guard let actor = indexSet.map({ actors[$0]}).first else { return }
+        guard let actor = indexSet.compactMap({ actors[$0]}).first else { return }
         MoviePublisher
             .getBy(actor.id)
             .flatMap { actor -> AnyPublisher<Void, Error> in

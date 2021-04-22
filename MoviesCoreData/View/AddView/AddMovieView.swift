@@ -27,10 +27,7 @@ struct AddMovieView: View {
                     }
                     .disabled(addMovieVM.title.isEmpty || addMovieVM.director.isEmpty)
                     Section(header: Text("RELEASE DATE")) {
-                        DatePicker(
-                            addMovieVM.title.isEmpty ||
-                                addMovieVM.director.isEmpty ? "" : "Date",
-                            selection: $addMovieVM.releaseDate,
+                        DatePicker("", selection: $addMovieVM.releaseDate,
                             in: ...Date(),
                             displayedComponents: .date
                         )

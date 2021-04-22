@@ -29,7 +29,7 @@ final class AddMovieViewModel: ObservableObject {
             .init(context: CoreDataProvider.shared.persistentContainer.viewContext)
         movie.title = title
         movie.director = director
-        movie.rating = Double(rating ?? 0)
+        movie.rating = Double(rating ?? 1)
         movie.releaseDate = releaseDate
         
         MoviePublisher
