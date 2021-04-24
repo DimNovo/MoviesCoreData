@@ -13,13 +13,10 @@ final class ActorViewModel: Identifiable {
     init(actor: Actor) {
         self.actor = actor
     }
-    var name: String {
-        actor.name ?? ""
-    }
     var id: NSManagedObjectID {
         actor.objectID
     }
-//    var movies: NSSet? {
-//        actor.movies
-//    }
+    var name: String {
+        actor.name ?? ""
+    }
 }

@@ -18,9 +18,10 @@ final class AddMovieViewModel: ObservableObject {
     var title = ""
     @Published
     var director = ""
+    @Published
+    var releaseDate = Date()
     
     private typealias MoviePublisher = AnyPublisher<Movie, Error>
-    var releaseDate = Date()
     private var cancellableSet: Set<AnyCancellable> = []
     
     func save() {

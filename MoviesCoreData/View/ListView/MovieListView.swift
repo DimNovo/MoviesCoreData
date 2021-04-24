@@ -18,8 +18,8 @@ struct MovieListView: View {
                 .foregroundColor(.init(.secondarySystemBackground))
         } else {
             List {
-                Section(header: Text("Movies in alphabet order").fontWeight(.light)) {
-                    ForEach(movieListVM.movies.sorted(by: { $0.title < $1.title })) { movieVM in
+                Section(header: Text("Movies").fontWeight(.light)) {
+                    ForEach(movieListVM.movies) { movieVM in
                         NavigationLink(
                             destination: MovieDetailView(movieVM: movieVM),
                             label: {

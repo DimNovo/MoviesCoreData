@@ -11,53 +11,68 @@ struct ContentView: View {
     @StateObject
     private var movieListVM = MovieListViewModel()
     var body: some View {
-        NavigationView {
-            MovieListView(movieListVM: movieListVM)
-                .navigationBarItems(
-                    leading:
-                        HStack(spacing: 20) {
+        ZStack(alignment: .bottom) {
+            NavigationView {
+                MovieListView(movieListVM: movieListVM)
+                    .navigationBarItems(
+                        leading:
+                            HStack(spacing: 20) {
+                                Button(
+                                    action: {
+                                        movieListVM.activeSheet = .filter
+                                    }, label: {
+                                        Image(systemName: "line.horizontal.3.decrease.circle")
+                                            .font(.title)
+                                    }
+                                )
+                                .opacity(movieListVM.movies.isEmpty ? 0.25 : 1.0)
+                                .disabled(movieListVM.movies.isEmpty)
+                                Button(
+                                    action: {
+                                        withAnimation(.spring()) {
+                                            movieListVM.isPresented.toggle()
+                                        }
+                                    }, label: {
+                                        Image(systemName: "arrow.up.arrow.down.circle")
+                                            .font(.title)
+                                    })
+                                    .opacity(movieListVM.movies.isEmpty ? 0.25 : 1.0)
+                                    .disabled(movieListVM.movies.isEmpty)
+                                Button(
+                                    action: {
+                                        movieListVM.updateUI()
+                                    }, label: {
+                                        Image(systemName: "xmark.circle")
+                                            .font(.title)
+                                            .foregroundColor(.red)
+                                    }
+                                )
+                            },
+                        trailing:
                             Button(
                                 action: {
-                                    movieListVM.activeSheet = .filter
+                                    movieListVM.activeSheet = .add
                                 }, label: {
-                                    Image(systemName: "line.horizontal.3.decrease.circle")
-                                        .font(.title)
+                                    Text("Add Movie")
                                 }
-                            )
-                            .opacity(movieListVM.movies.isEmpty ? 0.25 : 1.0)
-                            .disabled(movieListVM.movies.isEmpty)
-                            Button(
-                                action: {
+                            ))
+                    .sheet(item: $movieListVM.activeSheet) { item in
+                        switch item {
+                        case .add:
+                            AddMovieView()
+                                .onDisappear {
                                     movieListVM.updateUI()
-                                }, label: {
-                                    Image(systemName: "xmark.circle")
-                                        .font(.title)
-                                        .foregroundColor(.red)
                                 }
-                            )
-                        },
-                    trailing:
-                        Button(
-                            action: {
-                                movieListVM.activeSheet = .add
-                            }, label: {
-                                Text("Add Movie")
-                            }
-                        ))
-                .sheet(item: $movieListVM.activeSheet) { item in
-                    switch item {
-                    case .add:
-                        AddMovieView()
-                            .onDisappear {
-                                movieListVM.updateUI()
-                            }
-                    case .filter:
-                        FiltersView(movies: $movieListVM.movies)
+                        case .filter:
+                            FiltersView(movies: $movieListVM.movies)
+                        }
                     }
-                }
-                .navigationTitle("Movies")
+                    .navigationTitle("Movies")
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            SortingView(movieListVM: movieListVM)
+                .offset(y: movieListVM.isPresented ? 35 : 500)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

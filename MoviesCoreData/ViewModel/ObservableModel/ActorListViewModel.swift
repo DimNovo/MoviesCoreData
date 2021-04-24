@@ -61,9 +61,8 @@ final class ActorListViewModel: ObservableObject {
     }
     
     func delete(_ indexSet: IndexSet, _ manager: CoreDataProvider = .shared) {
-        guard let actor = indexSet.compactMap({ actors[$0]}).first else { return }
         MoviePublisher
-            .getBy(actor.id)
+            .getBy(indexSet.map { actors[$0].id }[0])
             .flatMap { actor -> AnyPublisher<Void, Error> in
                 MoviePublisher
                     .delete(actor)

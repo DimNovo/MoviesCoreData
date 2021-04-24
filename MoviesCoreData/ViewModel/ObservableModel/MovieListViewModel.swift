@@ -17,6 +17,13 @@ final class MovieListViewModel: ObservableObject {
     @Published
     var flag = false
     
+    @Published
+    var isPresented = false
+    @Published
+    var sortDirection: SortDirection = .ascending
+    @Published
+    var sortOption: SortOption = .title
+    
     private typealias MoviePublisher = AnyPublisher<Movie, Error>
     private typealias MoviesPublisher = AnyPublisher<[Movie], Error>
     private var cancellableSet: Set<AnyCancellable> = []
@@ -31,6 +38,8 @@ final class MovieListViewModel: ObservableObject {
             .sink { [self] completion in
                 switch completion {
                 case .finished:
+                    sortDirection = .ascending
+                    sortOption = .title
                     flag.toggle()
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -42,9 +51,8 @@ final class MovieListViewModel: ObservableObject {
     }
     
     func delete(_ indexSet: IndexSet) {
-        guard let movieVM = indexSet.map({ movies[$0] }).first else { return }
         MoviePublisher
-            .getBy(movieVM.id)
+            .getBy(indexSet.map { movies[$0].id }[0])
             .flatMap { movie -> AnyPublisher<Void, Error> in
                 MoviePublisher
                     .delete(movie)
@@ -57,6 +65,24 @@ final class MovieListViewModel: ObservableObject {
                     print(error.localizedDescription)
                 }
             } receiveValue: { _ in }
+            .store(in: &cancellableSet)
+    }
+    
+    func sorting() {
+        MoviesPublisher
+            .sort("Movie", sortOption, sortDirection)
+            .sink { [self] completion in
+                switch completion {
+                case .finished:
+                    isPresented.toggle()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            } receiveValue: { [self] in
+                if let sortedObjects = $0 as? [Movie] {
+                    movies = sortedObjects.map(MovieViewModel.init)
+                }
+            }
             .store(in: &cancellableSet)
     }
 }

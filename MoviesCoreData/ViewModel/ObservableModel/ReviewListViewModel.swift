@@ -40,9 +40,8 @@ final class ReviewListViewModel: ObservableObject {
     }
     
     func delete(_ indexSet: IndexSet, _ manager: CoreDataProvider = .shared) {
-        guard let reviewVM = indexSet.compactMap({ reviews[$0]}).first else { return }
         MoviePublisher
-            .getBy(reviewVM.id)
+            .getBy(indexSet.map { reviews[$0].id }[0])
             .flatMap { review -> AnyPublisher<Void, Error> in
                 MoviePublisher
                     .delete(review)

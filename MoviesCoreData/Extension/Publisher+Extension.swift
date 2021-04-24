@@ -174,6 +174,65 @@ extension Publisher {
         .receive(on: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
+    static func getBy<T: NSManagedObject>(
+        _ minimumReviewsCount: Int,
+        _ entityName: String,
+        _ provider: CoreDataProvider = .shared
+    ) -> AnyPublisher<[T]?, Error> {
+        Future { promise in
+            do {
+                let context = provider.persistentContainer.viewContext
+                let request: NSFetchRequest<T> = .init(entityName: entityName)
+                request.predicate =
+                    NSPredicate(
+                        format: "%K.@count >= i%",
+                        #keyPath(Movie.reviews),
+                        minimumReviewsCount
+                    )
+                let array: Array<T> = try context.fetch(request)
+                promise(.success(array))
+            } catch {
+                promise(.failure(error))
+            }
+        }
+        .receive(on: DispatchQueue.main)
+        .eraseToAnyPublisher()
+    }
+}
+
+extension Publisher {
+    static func sort<T: NSManagedObject>(
+        _ entityName: String,
+        _ key: SortOption,
+        _ ascending: SortDirection,
+        _ provider: CoreDataProvider = .shared
+    ) -> AnyPublisher<[T]?, Error> {
+        Future { promise in
+            do {
+                let request: NSFetchRequest<T> = .init(entityName: entityName)
+                request.sortDescriptors =
+                    [
+                        .init(
+                            key: "\(key)",
+                            ascending: (ascending == .ascending)
+                        )
+                    ]
+                let fetchResultsController =
+                    NSFetchedResultsController(
+                        fetchRequest: request,
+                        managedObjectContext: provider.persistentContainer.viewContext,
+                        sectionNameKeyPath: nil,
+                        cacheName: nil
+                    )
+                try fetchResultsController.performFetch()
+                promise(.success(fetchResultsController.fetchedObjects))
+            } catch {
+                promise(.failure(error))
+            }
+        }
+        .receive(on: DispatchQueue.main)
+        .eraseToAnyPublisher()
+    }
 }
 
 extension Publisher {

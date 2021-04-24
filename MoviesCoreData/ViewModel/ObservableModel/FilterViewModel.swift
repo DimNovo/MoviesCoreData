@@ -28,6 +28,8 @@ final class FilterViewModel: ObservableObject {
     var movieTitle = ""
     @Published
     var actorName = ""
+    @Published
+    var minReviewsCount = "0"
     
     @Published
     var flag = false
@@ -38,6 +40,41 @@ final class FilterViewModel: ObservableObject {
     func filterByTitle(_ movies: Binding<[MovieViewModel]>) {
         MoviesPublisher
             .getBy(movieTitle, "Movie")
+            .sink { [self] completion in
+                switch completion {
+                case .finished:
+                    flag.toggle()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            } receiveValue: {
+                guard let filteredMovies = $0 as? [Movie] else { return }
+                movies.wrappedValue = filteredMovies.map(MovieViewModel.init)
+            }
+            .store(in: &cancellableSet)
+    }
+    
+    func filterByReviews(_ movies: Binding<[MovieViewModel]>) {
+        MoviesPublisher
+            .getBy(minReviewsCount, "Movie")
+            .sink { [self] completion in
+                switch completion {
+                case .finished:
+                    flag.toggle()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            } receiveValue: {
+                guard let filteredMovies = $0 as? [Movie] else { return }
+                movies.wrappedValue = filteredMovies.map(MovieViewModel.init)
+            }
+            .store(in: &cancellableSet)
+    }
+    
+    func filterByActorName(_ movies: Binding<[MovieViewModel]>) {
+        let predicate = "actors.name CONTAINS %@"
+        MoviesPublisher
+            .getBy(actorName, "Movie", predicate)
             .sink { [self] completion in
                 switch completion {
                 case .finished:

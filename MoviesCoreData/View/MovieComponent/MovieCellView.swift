@@ -23,9 +23,6 @@ struct MovieCellView: View {
             Spacer()
             RatingView(rating: .constant(movie.rating), font: .footnote) 
         }
-        .onAppear {
-            print(movie.releaseDate)
-        }
     }
 }
 

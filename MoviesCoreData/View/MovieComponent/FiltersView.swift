@@ -17,12 +17,55 @@ struct FiltersView: View {
     var body: some View {
         NavigationView {
             Form {
+                Section(header: Text("by min reviews count")) {
+                    TextField("name...", text: $filterVM.minReviewsCount)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
+                    Button(
+                        action: {
+                            filterVM.filterByReviews($movies)
+                            presentationMode.wrappedValue.dismiss()
+                        },
+                        label: {
+                            Label(
+                                title: { Text("Apply filter") },
+                                icon: { Image(systemName: "line.horizontal.3.decrease.circle") })
+                                .font(.title3)
+                                .foregroundColor(.white)
+                                .frame(width: UIScreen.main.bounds.width / 1.2, height: 42)
+                                .background(Color.blue.opacity(0.75))
+                                .mask(RoundedRectangle(cornerRadius: 16.0, style: .continuous))
+                                .shadow(radius: 5)
+                        })
+                        .buttonStyle(PlainButtonStyle())
+                }
                 Section(header: Text("by movie name")) {
                     TextField("name...", text: $filterVM.movieTitle)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     Button(
                         action: {
                             filterVM.filterByTitle($movies)
+                            presentationMode.wrappedValue.dismiss()
+                        },
+                        label: {
+                            Label(
+                                title: { Text("Apply filter") },
+                                icon: { Image(systemName: "line.horizontal.3.decrease.circle") })
+                                .font(.title3)
+                                .foregroundColor(.white)
+                                .frame(width: UIScreen.main.bounds.width / 1.2, height: 42)
+                                .background(Color.blue.opacity(0.75))
+                                .mask(RoundedRectangle(cornerRadius: 16.0, style: .continuous))
+                                .shadow(radius: 5)
+                        })
+                        .buttonStyle(PlainButtonStyle())
+                }
+                Section(header: Text("by actor name")) {
+                    TextField("name...", text: $filterVM.actorName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Button(
+                        action: {
+                            filterVM.filterByActorName($movies)
                             presentationMode.wrappedValue.dismiss()
                         },
                         label: {

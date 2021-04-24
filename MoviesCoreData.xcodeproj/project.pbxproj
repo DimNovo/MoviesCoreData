@@ -25,6 +25,7 @@
 		7432F703262E72370090CFA2 /* ActorListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7432F702262E72370090CFA2 /* ActorListView.swift */; };
 		7432F707262E72B00090CFA2 /* ActorListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7432F706262E72B00090CFA2 /* ActorListViewModel.swift */; };
 		7432F70B262E74440090CFA2 /* ActorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7432F70A262E74440090CFA2 /* ActorViewModel.swift */; };
+		74884F2026328C1900E4D498 /* Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74884F1F26328C1900E4D498 /* Sorting.swift */; };
 		74AC436326311E0D00E1AA02 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AC436226311E0D00E1AA02 /* FilterViewModel.swift */; };
 		74AC436626312EF400E1AA02 /* ActiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AC436526312EF400E1AA02 /* ActiveSheet.swift */; };
 		74B81AD1262D1B6D006D1429 /* ReviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B81AD0262D1B6D006D1429 /* ReviewListView.swift */; };
@@ -35,6 +36,7 @@
 		74F5B407262A5E5D00F2058E /* AddMovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5B406262A5E5D00F2058E /* AddMovieViewModel.swift */; };
 		74F5B40A262A6ADB00F2058E /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5B409262A6ADB00F2058E /* MovieListViewModel.swift */; };
 		74F5B40E262A6FEC00F2058E /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5B40D262A6FEC00F2058E /* MovieViewModel.swift */; };
+		74F6FD812632656F005C0AE4 /* SortingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F6FD802632656F005C0AE4 /* SortingView.swift */; };
 		74FC6831262A9A00002683AB /* MovieCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FC6830262A9A00002683AB /* MovieCellView.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +61,7 @@
 		7432F702262E72370090CFA2 /* ActorListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorListView.swift; sourceTree = "<group>"; };
 		7432F706262E72B00090CFA2 /* ActorListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorListViewModel.swift; sourceTree = "<group>"; };
 		7432F70A262E74440090CFA2 /* ActorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorViewModel.swift; sourceTree = "<group>"; };
+		74884F1F26328C1900E4D498 /* Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sorting.swift; sourceTree = "<group>"; };
 		74AC436226311E0D00E1AA02 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		74AC436526312EF400E1AA02 /* ActiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheet.swift; sourceTree = "<group>"; };
 		74B81AD0262D1B6D006D1429 /* ReviewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListView.swift; sourceTree = "<group>"; };
@@ -69,6 +72,7 @@
 		74F5B406262A5E5D00F2058E /* AddMovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMovieViewModel.swift; sourceTree = "<group>"; };
 		74F5B409262A6ADB00F2058E /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
 		74F5B40D262A6FEC00F2058E /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
+		74F6FD802632656F005C0AE4 /* SortingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingView.swift; sourceTree = "<group>"; };
 		74FC6830262A9A00002683AB /* MovieCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				740A30CA262A394600519206 /* ContentView.swift */,
+				74F6FD802632656F005C0AE4 /* SortingView.swift */,
 				74295A63262E855E00A252C6 /* MovieComponent */,
 				74295A65262E858900A252C6 /* ListView */,
 				74295A67262E859B00A252C6 /* AddView */,
@@ -164,6 +169,7 @@
 			children = (
 				740A30EA262A545700519206 /* MovieDataModel.xcdatamodeld */,
 				74AC436526312EF400E1AA02 /* ActiveSheet.swift */,
+				74884F1F26328C1900E4D498 /* Sorting.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -294,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				740A30E8262A53CD00519206 /* CoreDataProvider.swift in Sources */,
+				74F6FD812632656F005C0AE4 /* SortingView.swift in Sources */,
 				74F5B40E262A6FEC00F2058E /* MovieViewModel.swift in Sources */,
 				742B482F262DB61D00868AEE /* Publisher+Extension.swift in Sources */,
 				74B81AD7262D2257006D1429 /* ReviewListViewModel.swift in Sources */,
@@ -315,6 +322,7 @@
 				740A30EC262A545700519206 /* MovieDataModel.xcdatamodeld in Sources */,
 				74B81AD4262D1CCF006D1429 /* AddReviewView.swift in Sources */,
 				7432F6FD262E66EB0090CFA2 /* AddActorView.swift in Sources */,
+				74884F2026328C1900E4D498 /* Sorting.swift in Sources */,
 				7432F70B262E74440090CFA2 /* ActorViewModel.swift in Sources */,
 				740A30DF262A39F500519206 /* MovieListView.swift in Sources */,
 				74F5B40A262A6ADB00F2058E /* MovieListViewModel.swift in Sources */,
